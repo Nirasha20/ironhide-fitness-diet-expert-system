@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IronHide — Expert Fitness & Diet System</title>
+  <meta name="description" content="IronHide: A Prolog-based Expert System delivering personalized fitness and diet recommendations based on WHO and SLNS guidelines." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Animated Background ── -->
+  <div class="bg-grid"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">Iron<strong>Hide</strong></span>
+      <span class="logo-badge">Expert System</span>
+    </div>
+    <nav class="nav-pills">
+      <a href="#analyzer" class="pill active">Analyzer</a>
+      <a href="#rules"    class="pill">Rules</a>
+      <a href="#about"    class="pill">About</a>
+    </nav>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-tag">🧠 Powered by Prolog Inference Engine</div>
+    <h1 class="hero-title">Your AI-Powered<br /><span class="gradient-text">Fitness & Diet</span><br />Expert System</h1>
+    <p class="hero-sub">28 rules from WHO & SLNS guidelines · Forward + Backward Chaining · Full Reasoning Trace</p>
+    <a href="#analyzer" class="hero-cta">Get My Recommendations →</a>
+  </section>
+
+  <!-- ── Main Analyzer ── -->
+  <section class="section" id="analyzer">
+    <div class="section-label">⚙ Expert Analysis</div>
+    <h2 class="section-title">Enter Your Profile</h2>
+    <p class="section-sub">The inference engine will classify your BMI, age group, and health conditions — then apply backward chaining to generate personalized rules.</p>
+
+    <div class="analyzer-grid">
+
+      <!-- INPUT PANEL -->
+      <div class="card input-card">
+        <form id="analyzerForm">
+
+          <div class="form-group">
+            <label for="age">Age <span class="unit">(years)</span></label>
+            <div class="input-wrap">
+              <input type="number" id="age" name="age" min="5" max="120" placeholder="e.g. 30" required />
+              <span class="input-icon">🎂</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="weight">Weight <span class="unit">(kg)</span></label>
+              <div class="input-wrap">
+                <input type="number" id="weight" name="weight" step="0.1" min="1" max="300" placeholder="e.g. 70" required />
+                <span class="input-icon">⚖️</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="height">Height <span class="unit">(cm)</span></label>
+              <div class="input-wrap">
+                <input type="number" id="height" name="height" step="0.1" min="50" max="250" placeholder="e.g. 175" required />
+                <span class="input-icon">📏</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="goal">Health Goal</label>
+            <div class="input-wrap">
+              <select id="goal" name="goal" required>
+                <option value="">— Select Goal —</option>
+                <option value="lose_weight">Lose Weight</option>
+                <option value="gain_weight">Gain Weight</option>
+                <option value="maintain">Maintain Weight</option>
+                <option value="improve_health">Improve Overall Health</option>
+              </select>
+              <span class="input-icon">🎯</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Health Conditions</label>
+            <div class="checkbox-group">
+              <label class="checkbox-item" id="cb-hypertension">
+                <input type="checkbox" name="conditions" value="hypertension" id="cond-hypertension" />
+                <span class="checkbox-box"></span>
+                Hypertension
+              </label>
+              <label class="checkbox-item" id="cb-diabetes">
+                <input type="checkbox" name="conditions" value="diabetes" id="cond-diabetes" />
+                <span class="checkbox-box"></span>
+                Diabetes
+              </label>
+              <label class="checkbox-item" id="cb-type2">
+                <input type="checkbox" name="conditions" value="type2_diabetes" id="cond-type2" />
+                <span class="checkbox-box"></span>
+                Type 2 Diabetes
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-item" id="cb-extra">
+              <input type="checkbox" id="wantsExtra" />
+              <span class="checkbox-box"></span>
+              I want additional health benefits (enables R9 — 300 min/week)
+            </label>
+          </div>
+
+          <button type="submit" class="btn-analyze" id="analyzeBtn">
+            <span class="btn-icon">🔬</span>
+            Run Expert Analysis
+          </button>
+        </form>
+      </div>
+
+      <!-- OUTPUT PANEL -->
+      <div class="output-panel" id="outputPanel">
+        <div class="placeholder-state" id="placeholderState">
+          <div class="placeholder-icon">🧬</div>
+          <p>Fill in your profile and click <strong>Run Expert Analysis</strong> to see your personalized recommendations.</p>
+        </div>
+
+        <div class="results-container" id="resultsContainer" style="display:none">
+
+          <!-- BMI Card -->
+          <div class="result-block bmi-block">
+            <div class="bmi-display">
+              <div class="bmi-value-wrap">
+                <span class="bmi-label">Your BMI</span>
+                <span class="bmi-value" id="bmiValue">—</span>
+              </div>
+              <div class="bmi-category-wrap">
+                <span class="bmi-category-badge" id="bmiCategory">—</span>
+                <span class="bmi-agegroup" id="ageGroupDisplay">—</span>
+              </div>
+            </div>
+            <div class="bmi-bar-wrap">
+              <div class="bmi-bar" id="bmiBar"></div>
+              <div class="bmi-bar-labels">
+                <span>Thinness<br/>＜17</span>
+                <span>Under<br/>＜18.5</span>
+                <span>Normal<br/>18.5-24.9</span>
+                <span>Over<br/>25-29.9</span>
+                <span>Obese<br/>≥30</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reasoning Chain -->
+          <div class="result-block reasoning-block" id="reasoningBlock">
+            <h3 class="block-title">🔗 Reasoning Chain</h3>
+            <div class="chain-steps" id="chainSteps"></div>
+          </div>
+
+          <!-- Physical Activity Recommendations -->
+          <div class="result-block rec-block" id="physicalBlock" style="display:none">
+            <h3 class="block-title">🏃 Physical Activity Recommendations</h3>
+            <div class="rec-list" id="physicalList"></div>
+          </div>
+
+          <!-- Diet Recommendations -->
+          <div class="result-block rec-block" id="dietBlock" style="display:none">
+            <h3 class="block-title">🥗 Dietary Recommendations</h3>
+            <div class="rec-list" id="dietList"></div>
+          </div>
+
+          <!-- Lifestyle Recommendations -->
+          <div class="result-block rec-block" id="lifestyleBlock" style="display:none">
+            <h3 class="block-title">🌙 Lifestyle Recommendations</h3>
+            <div class="rec-list" id="lifestyleList"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Rules Table ── -->
+  <section class="section" id="rules">
+    <div class="section-label">📚 Knowledge Base</div>
+    <h2 class="section-title">All 28 Rules</h2>
+    <p class="section-sub">Derived from WHO Physical Activity Guidelines 2020 and Dietary Guidelines for Sri Lankans (SLNS)</p>
+
+    <div class="rules-filter-bar">
+      <button class="filter-btn active" data-filter="all">All (28)</button>
+      <button class="filter-btn" data-filter="bmi">BMI (R1–R5)</button>
+      <button class="filter-btn" data-filter="physical_activity">Physical Activity</button>
+      <button class="filter-btn" data-filter="diet">Diet</button>
+      <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+    </div>
+
+    <div class="rules-grid" id="rulesGrid"></div>
+  </section>
+
+  <!-- ── About ── -->
+  <section class="section" id="about">
+    <div class="section-label">ℹ About</div>
+    <h2 class="section-title">System Architecture</h2>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-icon">🧠</div>
+        <h4>Inference Engine</h4>
+        <p>Uses <strong>forward chaining</strong> to derive BMI category and age group from inputs, then <strong>backward chaining</strong> to query applicable recommendation rules.</p>
+      </div>
+      <div class="arch-card">
+        <div class="arch-icon">📖</div>
+        <h4>Knowledge Base</h4>
+        <p>28 Prolog rules (facts + rules) encoded from <em>WHO Physical Activity Guidelines 2020</em> and <em>Dietary Guidelines for Sri Lankans</em> (SLNS).</p>
+      </div>
+      <div class="arch-card">
+        <div class="arch-icon">💻</div>
+        <h4>Implementation</h4>
+        <p>Built in <strong>SWI-Prolog</strong> with an HTTP server exposing a REST API. The UI communicates with the Prolog engine via JSON.</p>
+      </div>
+      <div class="arch-card">
+        <div class="arch-icon">🔍</div>
+        <h4>Explanation Facility</h4>
+        <p>Every recommendation displays its rule ID, source document, and reasoning trace — showing exactly how the conclusion was reached.</p>
+      </div>
+    </div>
+
+    <!-- Architecture Diagram (SVG) -->
+    <div class="diagram-wrap">
+      <h3 class="diagram-title">System Diagram</h3>
+      <svg class="arch-diagram" viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+          </linearGradient>
+          <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#6366f1" />
+          </marker>
+        </defs>
+
+        <!-- User -->
+        <rect x="20" y="150" width="130" height="80" rx="12" fill="url(#grad1)" />
+        <text x="85" y="185" text-anchor="middle" fill="white" font-family="Inter" font-weight="700" font-size="14">👤 User</text>
+        <text x="85" y="205" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="11">Age, Weight,</text>
+        <text x="85" y="220" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="11">Height, Conditions</text>
+
+        <!-- Arrow -->
+        <line x1="152" y1="190" x2="210" y2="190" stroke="#6366f1" stroke-width="2.5" marker-end="url(#arrow)" />
+
+        <!-- Web UI -->
+        <rect x="212" y="140" width="140" height="100" rx="12" fill="#1e1b4b" stroke="#6366f1" stroke-width="2" />
+        <text x="282" y="170" text-anchor="middle" fill="#a5b4fc" font-family="Inter" font-weight="700" font-size="13">🌐 Web UI</text>
+        <text x="282" y="190" text-anchor="middle" fill="#e2e8f0" font-family="Inter" font-size="11">HTML/CSS/JS</text>
+        <text x="282" y="207" text-anchor="middle" fill="#e2e8f0" font-family="Inter" font-size="11">REST API Client</text>
+        <text x="282" y="224" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="10">(localhost:8080)</text>
+
+        <!-- Arrow -->
+        <line x1="354" y1="190" x2="410" y2="190" stroke="#6366f1" stroke-width="2.5" marker-end="url(#arrow)" />
+
+        <!-- Inference Engine -->
+        <rect x="412" y="100" width="180" height="180" rx="12" fill="#0c0a1e" stroke="#8b5cf6" stroke-width="2.5" />
+        <text x="502" y="135" text-anchor="middle" fill="#c4b5fd" font-family="Inter" font-weight="800" font-size="13">🧠 Inference Engine</text>
+        <text x="502" y="155" text-anchor="middle" fill="#e2e8f0" font-family="Inter" font-size="11">(SWI-Prolog)</text>
+        <line x1="425" y1="165" x2="580" y2="165" stroke="#4c1d95" stroke-width="1" />
+        <text x="502" y="185" text-anchor="middle" fill="#a78bfa" font-family="Inter" font-size="11">Forward Chaining</text>
+        <text x="502" y="202" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="10">BMI + Age Classification</text>
+        <line x1="425" y1="215" x2="580" y2="215" stroke="#4c1d95" stroke-width="1" />
+        <text x="502" y="235" text-anchor="middle" fill="#a78bfa" font-family="Inter" font-size="11">Backward Chaining</text>
+        <text x="502" y="252" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="10">Rule Query &amp; Matching</text>
+        <text x="502" y="270" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="10">Explanation Facility</text>
+
+        <!-- Arrows to KB and WM -->
+        <line x1="502" y1="280" x2="502" y2="320" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,3" />
+
+        <!-- Double arrows to KB -->
+        <line x1="595" y1="190" x2="645" y2="160" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrow)" />
+        <line x1="595" y1="200" x2="645" y2="230" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Knowledge Base -->
+        <rect x="648" y="100" width="150" height="100" rx="12" fill="url(#grad2)" />
+        <text x="723" y="130" text-anchor="middle" fill="white" font-family="Inter" font-weight="700" font-size="13">📖 Knowledge Base</text>
+        <text x="723" y="150" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Inter" font-size="11">28 Prolog Rules</text>
+        <text x="723" y="167" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="10">R1–R5: BMI</text>
+        <text x="723" y="182" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="10">R6–R20: Activity</text>
+        <text x="723" y="197" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="10">R21–R28: Diet/Lifestyle</text>
+
+        <!-- Working Memory -->
+        <rect x="648" y="220" width="150" height="80" rx="12" fill="url(#grad3)" />
+        <text x="723" y="250" text-anchor="middle" fill="white" font-family="Inter" font-weight="700" font-size="13">💾 Working Memory</text>
+        <text x="723" y="270" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Inter" font-size="11">Dynamic Facts</text>
+        <text x="723" y="285" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="10">user_bmi, age_group,</text>
+        <text x="723" y="299" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Inter" font-size="10">has_condition, etc.</text>
+
+        <!-- Sources box -->
+        <rect x="648" y="20" width="230" height="60" rx="8" fill="#1e1b4b" stroke="#374151" stroke-width="1.5" />
+        <text x="763" y="43" text-anchor="middle" fill="#94a3b8" font-family="Inter" font-size="11">📄 Sources</text>
+        <text x="763" y="60" text-anchor="middle" fill="#6b7280" font-family="Inter" font-size="10">WHO 2020 · AHA · ADA · SLNS</text>
+        <text x="763" y="75" text-anchor="middle" fill="#6b7280" font-family="Inter" font-size="10">Dietary Guidelines for Sri Lankans</text>
+
+        <!-- Recommendations output -->
+        <rect x="412" y="330" width="180" height="40" rx="8" fill="#1e1b4b" stroke="#10b981" stroke-width="1.5" />
+        <text x="502" y="355" text-anchor="middle" fill="#34d399" font-family="Inter" font-weight="600" font-size="12">✅ Recommendations + Explanations</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <p>IronHide Expert System · Built with SWI-Prolog · Rules from WHO &amp; SLNS Guidelines</p>
+  </footer>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay" style="display:none">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <p>Running Prolog inference engine...</p>
+      <span class="loading-steps" id="loadingSteps">Classifying BMI...</span>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
